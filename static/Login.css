@@ -1,0 +1,51 @@
+*{
+margin:0px;
+padding:0px;
+}
+body {
+font-family:sans-serif;
+}
+.container{
+padding: 16px;
+}
+form {
+border: 3px solid #f1f1f1;
+margin-left:35%;
+margin-right:35%;
+margin-top:10%
+}
+h1{
+text-align: center;
+padding-top:16px;
+}
+input[type=password],input[type=mail]{
+width: 100%;
+padding: 12px 20px;
+margin: 8px 0;
+border: 1px solid #ccc;
+box-sizing: border-box;
+}
+button {
+background-color: #4CAF50;
+border-radius:20px;
+color: white;
+padding: 14px 20px;
+margin: 8px 0;
+border: none;
+cursor: pointer;
+width: 100%;
+}
+button:hover {
+opacity: 0.8;
+}
+.left{
+float:left;
+}
+.container2 {
+padding: 16px;
+padding-bottom:27px;
+}
+span.psw {
+display: block;
+float: right;
+}
