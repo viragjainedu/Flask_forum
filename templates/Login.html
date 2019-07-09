@@ -1,4 +1,5 @@
 {% extends "bootstrap/base.html" %}	
+{% import "bootstrap/wtf.html" as wtf %}
 
 {% block title %}
 Login
@@ -12,15 +13,14 @@ Login
 
 {% block content %}
 	<div>
-        <form >
+        <form method='POST' action='/Login'>
           <h1>Login</h1>
           <div class="container">
-            <label for="gmail"><b>Gmail</b></label>
-            <input type="mail" placeholder="Enter Gmail" name="gmail" required>
-            <label for="psw"><b>Password</b></label>
-            <input type="password" placeholder="Enter Password" name="psw" required>
+            {{ form.hidden_tag() }}
+            {{ wtf.form_field(form.username) }}
+            {{ wtf.form_field(form.password) }}
+            {{ wtf.form_field(form.remember) }}
             <button type="submit">Login</button>
-            <label><input type="checkbox" checked="checked" name="remember"> Remember me </label>
           </div>
 
           <div class="container2" style="background-color:#f1f1f1">
