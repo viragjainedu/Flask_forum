@@ -1,0 +1,14 @@
+{% extends "bootstrap/base.html" %}
+
+{% block title %}
+Home
+{% endblock %}
+
+{% block styles %}
+{{ super() }}
+<link rel="stylesheet" href="{{ url_for( '.static', filename='Home.css' ) }}" >
+{% endblock %}
+
+{% block content %}
+	<h1> Idhar html code likhna hain </h1>
+{% endblock %}

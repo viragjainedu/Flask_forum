@@ -1,10 +1,20 @@
-#Needs to be edited..
-import os
+from flask import Flask, render_template
+from flask_bootstrap import Bootstrap
 
-from bla_bla import bla_bla
+app = Flask(__name__)
+Bootstrap(app)
+
+@app.route('/')
+def Home():
+	return render_template('Home.html')
+
+@app.route('/Login')
+def Loginx():
+	return render_template('Login.html')
+
+@app.route('/Signup')
+def Signup():
+	return render_template('Signup.html')
 
 if __name__ == '__main__':
-    app.debug = True
-    host = os.environ.get('IP', '0.0.0.0')
-    port = int(os.environ.get('PORT', 8080))
-    app.run(host=host, port=port)
+	app.run(debug=True)
