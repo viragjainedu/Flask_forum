@@ -11,5 +11,23 @@ Signup
 {% endblock %}
 
 {% block content %}
-	<h1> Idhar html code likhna hain </h1>
+    <div>
+        <form >
+          <h1>Login</h1>
+          <div class="container">
+            <label for="gmail"><b>Gmail</b></label>
+            <input type="mail" placeholder="Enter Gmail" name="gmail" required>
+            <label for="psw"><b>Password</b></label>
+            <input type="password" placeholder="Enter Password" name="psw" required>
+            <button type="submit">Login</button>
+            <label><input type="checkbox" checked="checked" name="remember"> Remember me </label>
+          </div>
+
+          <div class="container2" style="background-color:#f1f1f1">
+              <p class="left">Don't have an account ? <a href="# ">Sign up</a></p>
+              <span class="psw">Forgot <a href="#">password?</a></span>
+
+          </div>
+        </form>
+    </div>
 {% endblock %}
