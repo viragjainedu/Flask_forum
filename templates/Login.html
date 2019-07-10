@@ -13,9 +13,9 @@ Login
 
 {% block content %}
 	<div>
-        <form method='POST' action='/Signup'>
+        <form method='POST' action='/Login'  >
           <h1>Login</h1>
-          <div class="container">
+          <div class="container" , style = "width: 300px;">
             {{ form.hidden_tag() }}
             {{ wtf.form_field(form.username) }}
             {{ wtf.form_field(form.password) }}

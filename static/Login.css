@@ -6,6 +6,7 @@ body {
 font-family:sans-serif;
 }
 .container{
+width: 300px;
 padding: 16px;
 }
 form {

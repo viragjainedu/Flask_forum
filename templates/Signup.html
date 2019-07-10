@@ -16,7 +16,7 @@ Signup
     <div >
         <form method="POST" action="/Signup" >
           <h1>Sign Up</h1>
-          <div class="container">
+          <div class="container" style="width: 300px" >
             {{ form.hidden_tag() }}
             {{ wtf.form_field(form.email) }}
             {{ wtf.form_field(form.username) }}
