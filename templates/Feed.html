@@ -3,27 +3,47 @@
 
 
 {% block title %}
-Home
+Feed
 {% endblock %}
 
 {% block styles %}
 {{ super() }}
-<link rel="stylesheet" href="{{ url_for( '.static', filename='Home.css' ) }}" >
+<link rel="stylesheet" href="{{ url_for( '.static', filename='feed.css' ) }}" >
 {% endblock %}
 
 {% block content %}
 
-<h3>Create/Edit Post</h3>
+<h3 style="color: #008000; text-align: center; ">Create/Edit Post</h3>
 
-<form action="/heyhey", method='POST'>
+<form action="/Feed", method='POST'>
    {{form.hidden_tag()}}
-   <div>
-      <div>{{ wtf.form_field(form.question) }}
-      <div>{{  wtf.form_field(form.answer) }}
+   <div style="padding: 15px;">
+      <div style="color: #008000;" >{{ wtf.form_field(form.question) }}
+      <div style="color: #008000;" >{{  wtf.form_field(form.answer) }}
    </div>
    <p>
+    <div style="text-align: center;">
       <input type=submit value="Publish">
+    </div>
+    <br>
+
+<div class="row">
+  <div class="column" style="background-color:#ffffff     ;">
+    <h2>Questions</h2>
+    <p> 
+      {{new_question.sawaal}} 
+    </p>
+  </div>
+  <div class="column" style="background-color:#ffffff;">
+    <h2>Answers</h2>
+    <p>
+      {{new_answer.jawaab}}       
+    </p>
+  </div>
+</div>
+
 </form>
+
 
 	
 {% endblock %}

@@ -18,7 +18,7 @@ app.config['SQLALCHEMY_BINDS'] = {'sawaal' : 'sqlite:///sawaal.db' ,
 db = SQLAlchemy(app)
 
 class PostForm(FlaskForm):
-    question = StringField('question', validators=[InputRequired(), Length(min=1, max=200)])
+    question = StringField('question',widget=TextArea() )
     answer   = StringField('answer', widget=TextArea())
 
 class User(db.Model):
@@ -29,14 +29,23 @@ class User(db.Model):
 
 class sawaal(db.Model):
 	__bind_key__ = 'sawaal'
-	id = db.Column(db.Integer, primary_key=True)		
-	question = db.Column(db.String(200))
+	question = db.Column(db.String(200) , primary_key=True)
+	
+	def __init__(self,question):
+		self.question=question
+
+	def __repr__(self):
+		return '<sawaal %r>' % self.question
 
 class jawaab(db.Model):
 	__bind_key__ = 'jawaab'
-	id = db.Column(db.Integer, primary_key=True)		
-	answer = db.Column(db.String(200))
+	answer = db.Column(db.String(200) , primary_key=True)    
+	
+	def __init__(self,answer):
+		self.answer=answer
 
+	def __repr__(self):
+		return '<jawaab %r>' % self.answer
 
 class LoginForm(FlaskForm):
 	username = StringField('username', validators=[InputRequired(), Length(min=4, max=15)])
@@ -51,9 +60,7 @@ class SignUpForm(FlaskForm):
 
 @app.route('/')
 def Home():
-	form = PostForm()
-	return render_template('Feed.html' , form=form)
-
+	return render_template('Home.html')
 
 @app.route('/Login'  , methods=['GET' , 'POST'])
 def Login():
@@ -74,14 +81,15 @@ def Signup():
 		new_user = User(username=form.username.data, email=form.email.data, password=form.password.data)
 		db.session.add(new_user)	
 		db.session.commit()
-		return '<h1> New user is created</h1>'
-		#return '<h1>' + "USERNAME" + form.username.data + ' ' + " PASSWORD "+form.password.data + " Email "+form.email.data + '</h1>'
 
 	return render_template('Signup.html' , form=form)
 
-@app.route('/heyhey', methods=['GET' , 'POST'])
+@app.route('/Feed', methods=['GET' , 'POST'])
 def Feed():
 	form = PostForm()
+	new_answer = db.session.query(jawaab).first()
+	new_question = db.session.query(sawaal).first()
+
 	if form.validate_on_submit():
 		new_question = sawaal(question = form.question.data)
 		db.session.add(new_question)	
@@ -91,7 +99,7 @@ def Feed():
 		db.session.add(new_answer)	
 		db.session.commit()
 
-	return '<h1> New question is created</h1>'
+	return render_template('Feed.html' , form=form , new_question=new_question , new_answer=new_answer )
 
 
 
