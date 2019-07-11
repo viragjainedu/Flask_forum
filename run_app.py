@@ -31,21 +31,10 @@ class sawaal(db.Model):
 	__bind_key__ = 'sawaal'
 	question = db.Column(db.String(200) , primary_key=True)
 	
-	def __init__(self,question):
-		self.question=question
-
-	def __repr__(self):
-		return '<sawaal %r>' % self.question
 
 class jawaab(db.Model):
 	__bind_key__ = 'jawaab'
 	answer = db.Column(db.String(200) , primary_key=True)    
-	
-	def __init__(self,answer):
-		self.answer=answer
-
-	def __repr__(self):
-		return '<jawaab %r>' % self.answer
 
 class LoginForm(FlaskForm):
 	username = StringField('username', validators=[InputRequired(), Length(min=4, max=15)])
@@ -87,8 +76,6 @@ def Signup():
 @app.route('/Feed', methods=['GET' , 'POST'])
 def Feed():
 	form = PostForm()
-	new_answer = db.session.query(jawaab).first()
-	new_question = db.session.query(sawaal).first()
 
 	if form.validate_on_submit():
 		new_question = sawaal(question = form.question.data)
@@ -99,7 +86,12 @@ def Feed():
 		db.session.add(new_answer)	
 		db.session.commit()
 
-	return render_template('Feed.html' , form=form , new_question=new_question , new_answer=new_answer )
+
+	new_answers = jawaab.query.all()
+	new_questions = sawaal.query.all()
+
+
+	return render_template('Feed.html' , form=form , new_questions=new_questions , new_answers=new_answers )
 
 
 

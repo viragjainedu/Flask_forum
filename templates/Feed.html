@@ -26,24 +26,24 @@ Feed
       <input type=submit value="Publish">
     </div>
     <br>
-
-<div class="row">
-  <div class="column" style="background-color:#ffffff     ;">
-    <h2>Questions</h2>
-    <p> 
-      {{new_question.sawaal}} 
-    </p>
-  </div>
-  <div class="column" style="background-color:#ffffff;">
-    <h2>Answers</h2>
-    <p>
-      {{new_answer.jawaab}}       
-    </p>
-  </div>
-</div>
-
 </form>
 
 
+<div class="row">
+  <div class="column" style="background-color:#ffffff     ;">
+    <h2 style="text-align: center;">Questions</h2>
+    <p> {% for ques in new_questions  %}
+          <li>{{ ques.question }}</li>
+        {% endfor %} 
+    </p>
+  </div>
+  <div class="column" style="background-color:#ffffff;">
+    <h2 style="text-align: center;">Answers</h2>
+    <p> {% for ans in new_answers  %}
+          <li>{{ ans.answer }}</li>
+        {% endfor %} 
+    </p>
+  </div>
+</div>
 	
 {% endblock %}
