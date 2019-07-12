@@ -18,8 +18,10 @@ app.config['SQLALCHEMY_BINDS'] = {'sawaal' : 'sqlite:///sawaal.db' ,
 db = SQLAlchemy(app)
 
 class PostForm(FlaskForm):
-    question = StringField('Question',widget=TextArea() )
-    answer   = StringField('Answer', widget=TextArea())
+    question = StringField('Question',validators=[] )
+
+class PostForm2(FlaskForm):
+    answer   = StringField('Answer', validators=[])
 
 class User(db.Model):
 	id = db.Column(db.Integer, primary_key=True)
@@ -78,22 +80,27 @@ def Signup():
 @app.route('/Feed', methods=['GET' , 'POST'])
 def Feed():
 	form = PostForm()
+	form2 = PostForm2()
+	
+	if form2.validate_on_submit():
+		new_answer = jawaab(answer = form2.answer.data)
+		if form2.answer.data != '':
+			db.session.add(new_answer)	
+			db.session.commit()
 
 	if form.validate_on_submit():
 		new_question = sawaal(question = form.question.data)
-		db.session.add(new_question)	
-		db.session.commit()
-
-		new_answer = jawaab(answer = form.answer.data)
-		db.session.add(new_answer)	
-		db.session.commit()
-
+		if form.question.data != '':
+			db.session.add(new_question)	
+			db.session.commit()
 
 	new_answers = jawaab.query.all()
 	new_questions = sawaal.query.all()
 
+	return render_template('Feed.html' , form=form , form2=form2 ,  new_questions=new_questions , new_answers=new_answers )
 
-	return render_template('Feed.html' , form=form , new_questions=new_questions , new_answers=new_answers )
+
+
 
 
 
