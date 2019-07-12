@@ -18,8 +18,8 @@ app.config['SQLALCHEMY_BINDS'] = {'sawaal' : 'sqlite:///sawaal.db' ,
 db = SQLAlchemy(app)
 
 class PostForm(FlaskForm):
-    question = StringField('question',widget=TextArea() )
-    answer   = StringField('answer', widget=TextArea())
+    question = StringField('Question',widget=TextArea() )
+    answer   = StringField('Answer', widget=TextArea())
 
 class User(db.Model):
 	id = db.Column(db.Integer, primary_key=True)
@@ -37,20 +37,21 @@ class jawaab(db.Model):
 	answer = db.Column(db.String(200) , primary_key=True)    
 
 class LoginForm(FlaskForm):
-	username = StringField('username', validators=[InputRequired(), Length(min=4, max=15)])
-	password = PasswordField('password', validators=[InputRequired(), Length(min=8, max=80)])
-	remember = BooleanField('remember me')
+	username = StringField('Username', validators=[InputRequired(), Length(min=4, max=15)])
+	password = PasswordField('Password', validators=[InputRequired(), Length(min=8, max=80)])
 
 class SignUpForm(FlaskForm):
-	email    = StringField('email' , validators=[InputRequired() , Email(message='Invalid Email'), Length(max=50) ])
-	username = StringField('username', validators=[InputRequired(), Length(min=4, max=15)])
-	password = PasswordField('password', validators=[InputRequired(), Length(min=8, max=80)])
+	email    = StringField('Email' , validators=[InputRequired() , Email(message='Invalid Email'), Length(max=50) ])
+	username = StringField('Username', validators=[InputRequired(), Length(min=4, max=15)])
+	password = PasswordField('Password', validators=[InputRequired(), Length(min=8, max=80)])
 
 
 @app.route('/')
 def Home():
 	return render_template('Home.html')
 
+
+		
 @app.route('/Login'  , methods=['GET' , 'POST'])
 def Login():
 	form = LoginForm() 
@@ -58,7 +59,7 @@ def Login():
 		user = User.query.filter_by(username=form.username.data).first()
 		if user:
 			if user.password == form.password.data:
-			  	return redirect(url_for('Home'))
+			  	return redirect(url_for('Feed'))
 		return '<h1>Invalid username or password</h1>'
 
 	return render_template('Login.html' , form=form)
@@ -70,6 +71,7 @@ def Signup():
 		new_user = User(username=form.username.data, email=form.email.data, password=form.password.data)
 		db.session.add(new_user)	
 		db.session.commit()
+		return redirect(url_for('Home'))
 
 	return render_template('Signup.html' , form=form)
 
@@ -92,6 +94,7 @@ def Feed():
 
 
 	return render_template('Feed.html' , form=form , new_questions=new_questions , new_answers=new_answers )
+
 
 
 

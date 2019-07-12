@@ -13,8 +13,14 @@ Signup
 {% endblock %}
 
 {% block content %}
+  <div class ="nav_bar">
+        <ul>
+            <li><a href="{{ url_for( 'Home' )}}"> Home</a></li>
+            <li><a href="{{ url_for( 'Login' )}}"> Login</a></li>
+        </ul>
+    </div>
     <div >
-        <form method="POST" action="/Login" >
+        <form method="POST" action="/Signup" >
           <h1>Sign Up</h1>
           <div class="container" style="width: 300px" >
             {{ form.hidden_tag() }}

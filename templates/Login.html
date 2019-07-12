@@ -12,21 +12,23 @@ Login
 {% endblock %}
 
 {% block content %}
+  <div class ="nav_bar">
+        <ul>
+            <li><a href="{{ url_for( 'Home' )}}"> Home</a></li>
+            <li><a href="{{ url_for( 'Signup' )}}"> Sign up</a></li>
+        </ul>
+    </div>
 	<div>
-        <form method='POST' action='/Feed'  >
+        <form method='POST' action='/Login'  >
           <h1>Login</h1>
           <div class="container" , style = "width: 300px;">
             {{ form.hidden_tag() }}
             {{ wtf.form_field(form.username) }}
             {{ wtf.form_field(form.password) }}
-            {{ wtf.form_field(form.remember) }}
             <button type="submit">Login</button>
           </div>
 
           <div class="container2" style="background-color:#f1f1f1">
-              <p class="left">Don't have an account ? <a href="# ">Sign up</a></p>
-              <span class="psw">Forgot <a href="#">password?</a></span>
-
           </div>
         </form>
     </div>

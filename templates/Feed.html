@@ -12,8 +12,16 @@ Feed
 {% endblock %}
 
 {% block content %}
+<div class ="nav_bar">
+    <div >
+      <ul>
+        <li><a href="{{ url_for( 'Feed' )}}"> Feed</a></li>
+        <li><a href="{{ url_for( 'Home' )}}"> Log Out</a></li>
+      </ul>
+    </div>
+</div>
 
-<h3 style="color: #008000; text-align: center; ">Create/Edit Post</h3>
+<h3 style="color: #008000; text-align: center; font-family:Times New Roman ;">Ask or Answer</h3>
 
 <form action="/Feed", method='POST'>
    {{form.hidden_tag()}}
@@ -30,14 +38,14 @@ Feed
 
 
 <div class="row">
-  <div class="column" style="background-color:#ffffff     ;">
+  <div class="column" style="background-color:#ffffff;font-size: 100%">
     <h2 style="text-align: center;">Questions</h2>
     <p> {% for ques in new_questions  %}
           <li>{{ ques.question }}</li>
         {% endfor %} 
     </p>
   </div>
-  <div class="column" style="background-color:#ffffff;">
+  <div class="column" style="background-color:#ffffff;font-size: 100%">
     <h2 style="text-align: center;">Answers</h2>
     <p> {% for ans in new_answers  %}
           <li>{{ ans.answer }}</li>
