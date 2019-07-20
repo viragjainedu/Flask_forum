@@ -12,8 +12,7 @@ Bootstrap(app)
 app.config['SECRET_KEY'] = 'virag'
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///database.db'
 app.config['SQLALCHEMY_BINDS'] = {'sawaal' : 'sqlite:///sawaal.db' , 
-									'jawaab' : 'sqlite:///jawaab.db' }
-
+									'jawaab' : 'sqlite:///jawaab.db'}
 
 db = SQLAlchemy(app)
 
@@ -22,9 +21,10 @@ class PostForm(FlaskForm):
 
 class PostForm2(FlaskForm):
     answer   = StringField('Answer', validators=[])
+    qnumber  = StringField('For Question no:')
 
 class User(db.Model):
-	id = db.Column(db.Integer, primary_key=True)
+	id = db.Column(db.Integer, primary_key=True)	
 	username = db.Column(db.String(15), unique=True)
 	email = db.Column(db.String(50), unique=True)
 	password = db.Column(db.String(80))
@@ -33,10 +33,11 @@ class sawaal(db.Model):
 	__bind_key__ = 'sawaal'
 	question = db.Column(db.String(200) , primary_key=True)
 	
-
 class jawaab(db.Model):
 	__bind_key__ = 'jawaab'
-	answer = db.Column(db.String(200) , primary_key=True)    
+	id = db.Column(db.Integer, primary_key=True)
+	answer = db.Column(db.String(200) )    
+	qnumber  = db.Column(db.Integer())	
 
 class LoginForm(FlaskForm):
 	username = StringField('Username', validators=[InputRequired(), Length(min=4, max=15)])
@@ -81,9 +82,9 @@ def Signup():
 def Feed():
 	form = PostForm()
 	form2 = PostForm2()
-	
+
 	if form2.validate_on_submit():
-		new_answer = jawaab(answer = form2.answer.data)
+		new_answer = jawaab(answer = form2.answer.data , qnumber = form2.qnumber.data)
 		if form2.answer.data != '':
 			db.session.add(new_answer)	
 			db.session.commit()
@@ -98,12 +99,6 @@ def Feed():
 	new_questions = sawaal.query.all()
 
 	return render_template('Feed.html' , form=form , form2=form2 ,  new_questions=new_questions , new_answers=new_answers )
-
-
-
-
-
-
 
 if __name__ == '__main__':
 	app.run(debug=True)

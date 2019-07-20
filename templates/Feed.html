@@ -25,33 +25,60 @@ Feed
 
 <form action="/Feed", method='POST'>
    {{form.hidden_tag()}}
-   <div style="padding: 15px;">
-      <div style="color: #008000;" >{{ wtf.form_field(form.question) }}
-      <div style="color: #008000;" >{{  wtf.form_field(form2.answer) }}
-   </div>
-   <p>
-    <div style="text-align: center;">
+   <div style="padding: 15px;padding-bottom: 0%">
+      <div style="color: #008000;" >
+        {{ wtf.form_field(form.question) }}
+    </div>
+  </div>
+
+    <div style="padding: 15px ; text-align: center;">
       <input type=submit value="Publish">
     </div>
-    <br>
+
+  <div style="background-color:#ffffff;font-size: 100% ;">
+    <h2 style="text-align: center;">Questions</h2>
+    <p> 
+    <ol> 
+      {% for ques in new_questions  %}
+          <li>{{ ques.question }}</li>
+        {% endfor %} 
+    </ol>
+    </p>
+  </div>
+
+</form>
+
+<form action="/Feed", method='POST'>       
+   {{form.hidden_tag()}}
+
+  <div style="margin: 15px; margin-right: 0% ; width:75% ; float: left;">     
+    <div style="color: #008000;" >
+        {{  wtf.form_field(form2.answer) }}
+   </div>
+  </div>
+
+  
+  <div style="margin: 15px; margin-right: 1% ; float: right; width:20%;">     
+    <div style="color: #008000;" >
+        {{  wtf.form_field(form2.qnumber) }}
+   </div>
+  </div>
+
+    <div style="padding: 15px ; text-align: center;">
+      <input type=submit value="Publish">
+    </div> 
+  
+   <div  style="background-color:#ffffff;font-size: 100%; padding: 15px;padding-bottom: 0%">
+    <h2 style="text-align: center;">Answers</h2>
+    <p>
+      {% for ans in new_answers  %}
+          <li>Answer for question no : {{ ans.qnumber }} ------> {{ ans.answer }}</li>
+        {% endfor %} 
+    </p>
+  </div>
+
 </form>
 
 
-<div class="row">
-  <div class="column" style="background-color:#ffffff;font-size: 100%">
-    <h2 style="text-align: center;">Questions</h2>
-    <p> {% for ques in new_questions  %}
-          <li>{{ ques.question }}</li>
-        {% endfor %} 
-    </p>
-  </div>
-  <div class="column" style="background-color:#ffffff;font-size: 100%">
-    <h2 style="text-align: center;">Answers</h2>
-    <p> {% for ans in new_answers  %}
-          <li>{{ ans.answer }}</li>
-        {% endfor %} 
-    </p>
-  </div>
-</div>
   
 {% endblock %}
